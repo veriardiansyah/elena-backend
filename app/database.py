@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # Menentukan lokasi file database SQLite lokal
-DATABASE_URL = "sqlite:///./network_monitor.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:////tmp/sql_app.db"
 
 # Membuat engine koneksi ke SQLite
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
