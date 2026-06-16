@@ -1,0 +1,23 @@
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# Menentukan lokasi file database SQLite lokal
+DATABASE_URL = "sqlite:///./network_monitor.db"
+
+# Membuat engine koneksi ke SQLite
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+
+# Membuat sesi untuk interaksi query ke database
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Base class untuk mendefinisikan ORM Models
+Base = declarative_base()
+
+# Fungsi dependency injection untuk menyediakan sesi DB ke endpoint API
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
